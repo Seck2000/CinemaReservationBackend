@@ -1,0 +1,125 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5164
+        }
+      ],
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "SwaggerKey": "auth"
+    },
+    {
+      "DownstreamPathTemplate": "/api/films/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5253
+        }
+      ],
+      "UpstreamPathTemplate": "/catalogue/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "SwaggerKey": "films"
+    },
+    {
+      "DownstreamPathTemplate": "/api/salle/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5035
+        }
+      ],
+      "UpstreamPathTemplate": "/salles/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "SwaggerKey": "salles"
+    },
+    {
+      "DownstreamPathTemplate": "/api/reservation/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5147
+        }
+      ],
+      "UpstreamPathTemplate": "/reservations/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "SwaggerKey": "reservations"
+    },
+    {
+      "DownstreamPathTemplate": "/api/paiement/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5112
+        }
+      ],
+      "UpstreamPathTemplate": "/paiement/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "SwaggerKey": "paiement"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  },
+  "SwaggerEndPoints": [
+    {
+      "Key": "auth",
+      "Config": [
+        {
+          "Name": "Authentification Service API",
+          "Version": "v1",
+          "Url": "http://localhost:5164/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "films",
+      "Config": [
+        {
+          "Name": "Films Service API",
+          "Version": "v1",
+          "Url": "http://localhost:5253/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "salles",
+      "Config": [
+        {
+          "Name": "Salle Service API",
+          "Version": "v1",
+          "Url": "http://localhost:5035/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "reservations",
+      "Config": [
+        {
+          "Name": "Reservation Service API",
+          "Version": "v1",
+          "Url": "http://localhost:5147/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "paiement",
+      "Config": [
+        {
+          "Name": "Paiement Service API",
+          "Version": "v1",
+          "Url": "http://localhost:5112/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}
+
