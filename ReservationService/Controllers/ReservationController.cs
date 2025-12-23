@@ -29,6 +29,38 @@ namespace ReservationService.Controllers
             _httpClient = new HttpClient();
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetReservation(int id)
+        {
+            var reservation = await _context.Reservations
+                .Include(r => r.ReservationBillets)
+                .Include(r => r.ReservationSieges)
+                .FirstOrDefaultAsync(r => r.ReservationId == id);
+
+            if (reservation == null) return NotFound();
+
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            // Optionnel : Vérifier que l'utilisateur est bien le propriétaire de la réservation
+            // if (reservation.UserId != userId) return Forbid();
+
+            return Ok(reservation);
+        }
+
+        [HttpPut("{id}/annuler")]
+        public async Task<IActionResult> CancelReservation(int id)
+        {
+            var reservation = await _context.Reservations.FindAsync(id);
+            if (reservation == null) return NotFound();
+
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            // if (reservation.UserId != userId) return Forbid();
+
+            reservation.Statut = "Annulée";
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateReservation([FromBody] CreateReservationDto request)
         {

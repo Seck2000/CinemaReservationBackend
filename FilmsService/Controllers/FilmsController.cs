@@ -2,6 +2,7 @@ using FilmsService.Data;
 using FilmsService.DTOs;
 using FilmsService.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace FilmsService.Controllers
@@ -34,6 +35,7 @@ namespace FilmsService.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Fournisseur")]
         public async Task<ActionResult<Film>> PostFilm(CreateFilmDto filmDto)
         {
             var film = new Film
@@ -72,6 +74,7 @@ namespace FilmsService.Controllers
         }
 
         [HttpPost("seances")]
+        [Authorize(Roles = "Fournisseur")]
         public async Task<ActionResult<Seance>> PostSeance(CreateSeanceDto seanceDto)
         {
             var seance = new Seance

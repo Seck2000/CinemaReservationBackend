@@ -19,6 +19,14 @@ namespace PaiementService.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPaiement(int id)
+        {
+            var paiement = await _context.Paiements.FindAsync(id);
+            if (paiement == null) return NotFound();
+            return Ok(paiement);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreatePayment([FromBody] PaiementRequestDto request)
         {

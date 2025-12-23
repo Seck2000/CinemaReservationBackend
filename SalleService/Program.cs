@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using SalleService.Data;
 
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,7 +15,10 @@ builder.Services.AddDbContext<SalleDbContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Service de Gestion des Salles", Version = "v1" });
+});
 
 var app = builder.Build();
 

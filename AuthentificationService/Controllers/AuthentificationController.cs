@@ -11,13 +11,13 @@ namespace AuthentificationService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthentificationController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+        public AuthentificationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -41,7 +41,16 @@ namespace AuthentificationService.Controllers
 
             if (result.Succeeded)
             {
-                return Ok(new { Message = "User registered successfully" });
+                // Assigner le rôle (par défaut "Client" si non spécifié ou invalide)
+                var role = model.Role ?? "Client";
+                if (role != "Client" && role != "Fournisseur")
+                {
+                    role = "Client"; // Sécurité : rôle par défaut si invalide
+                }
+                
+                await _userManager.AddToRoleAsync(user, role);
+                
+                return Ok(new { Message = "User registered successfully", Role = role });
             }
 
             return BadRequest(result.Errors);
@@ -55,14 +64,14 @@ namespace AuthentificationService.Controllers
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByNameAsync(model.Username);
-                var token = GenerateJwtToken(user);
+                var token = await GenerateJwtToken(user);
                 return Ok(new { Token = token });
             }
 
             return Unauthorized(new { Message = "Invalid login attempt" });
         }
 
-        private string GenerateJwtToken(ApplicationUser user)
+        private async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var claims = new List<Claim>
             {
@@ -70,6 +79,13 @@ namespace AuthentificationService.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
+
+            // Ajouter les rôles de l'utilisateur dans les claims
+            var userRoles = await _userManager.GetRolesAsync(user);
+            foreach (var role in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

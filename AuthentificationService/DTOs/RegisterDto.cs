@@ -15,6 +15,9 @@ namespace AuthentificationService.DTOs
         public string Password { get; set; } = string.Empty;
 
         public string? FullName { get; set; }
+
+        // Rôle par défaut : "Client" si non spécifié
+        public string Role { get; set; } = "Client";
     }
 }
 

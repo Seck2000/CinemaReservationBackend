@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamPathTemplate": "/api/authentification/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,7 @@
           "Port": 5164
         }
       ],
-      "UpstreamPathTemplate": "/auth/{everything}",
+      "UpstreamPathTemplate": "/api/authentification/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "SwaggerKey": "auth"
     },
@@ -22,7 +22,7 @@
           "Port": 5253
         }
       ],
-      "UpstreamPathTemplate": "/catalogue/{everything}",
+      "UpstreamPathTemplate": "/api/films/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "SwaggerKey": "films"
     },
@@ -35,7 +35,7 @@
           "Port": 5035
         }
       ],
-      "UpstreamPathTemplate": "/salles/{everything}",
+      "UpstreamPathTemplate": "/api/salle/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "SwaggerKey": "salles"
     },
@@ -48,7 +48,7 @@
           "Port": 5147
         }
       ],
-      "UpstreamPathTemplate": "/reservations/{everything}",
+      "UpstreamPathTemplate": "/api/reservation/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "SwaggerKey": "reservations"
     },
@@ -61,7 +61,7 @@
           "Port": 5112
         }
       ],
-      "UpstreamPathTemplate": "/paiement/{everything}",
+      "UpstreamPathTemplate": "/api/paiement/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "SwaggerKey": "paiement"
     }
