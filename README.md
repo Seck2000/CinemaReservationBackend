@@ -1,7 +1,7 @@
 # 🎬 Cinema Reservation Backend – TP2
 
 Ce projet correspond au **Travail Pratique II** du cours **Technologies du commerce électronique**.  
-Il s’agit de la partie **back-end** d’un système de réservation de cinéma en ligne développé avec une **architecture microservices** en ASP.NET Core Web API.
+Il s’agit de la partie **back-end** d’un système de réservation de billet de cinéma en ligne développé avec une **architecture microservices** en ASP.NET Core Web API.
 
 L’objectif du travail est de démontrer la mise en place de microservices, d’une authentification sécurisée, d’un paiement électronique et d’une documentation Swagger unifiée.
 
